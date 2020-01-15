@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,16 @@ namespace BackgroundMusic
         public MainWindow()
         {
             InitializeComponent();
+
+            this.Title = "BackgroundMusic v" + GetVersionNumber();
+        }
+
+        private string GetVersionNumber()
+        {
+            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+            string version = fvi.FileVersion;
+            return version;
         }
     }
 }
