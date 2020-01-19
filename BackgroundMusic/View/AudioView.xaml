@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="BackgroundMusic.View.AudioView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BackgroundMusic.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="40" d:DesignWidth="150">
+    <Grid>
+        <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60*" />
+                <ColumnDefinition Width="20*" />
+                <ColumnDefinition Width="20*" />
+        </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30*" />
+                <RowDefinition Height="70*" />
+            </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Name}"/>
+                <Grid Grid.Column="1" Grid.RowSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50*" />
+                        <RowDefinition Height="50*" />
+                    </Grid.RowDefinitions>
+                    <CheckBox Grid.Row="0">R</CheckBox>
+                    <Button Grid.Row="1" Content="P" Margin="0,0,10,0"/>
+                </Grid>
+        <Slider Grid.Row="1" Maximum="100" TickPlacement="BottomRight" TickFrequency="5" ></Slider>
+        <Slider Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Maximum="100" Orientation="Vertical" ></Slider>
+    </Grid>
+</UserControl>

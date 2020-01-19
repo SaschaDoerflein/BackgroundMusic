@@ -30,9 +30,9 @@ namespace BackgroundMusic
 
         private string GetVersionNumber()
         {
-            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
-            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
-            string version = fvi.FileVersion;
+            var executingAssembly = System.Reflection.Assembly.GetExecutingAssembly();
+            var fileVersionInfo = FileVersionInfo.GetVersionInfo(executingAssembly.Location);
+            var version = fileVersionInfo.FileVersion;
             return version;
         }
     }

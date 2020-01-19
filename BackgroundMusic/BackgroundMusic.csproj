@@ -7,4 +7,19 @@
     <Version>0.0.0.1</Version>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Resources\Sounds\**" />
+    <EmbeddedResource Remove="Resources\Sounds\**" />
+    <None Remove="Resources\Sounds\**" />
+    <Page Remove="Resources\Sounds\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NAudio" Version="1.7.3" />
+  </ItemGroup>
+
 </Project>
