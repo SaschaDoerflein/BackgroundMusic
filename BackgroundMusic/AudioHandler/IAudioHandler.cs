@@ -8,6 +8,7 @@ namespace BackgroundMusic.AudioHandler
 {
     public interface IAudioHandler
     {
+        public IAudioHandler CreateNewInstance(string path);
         public string Path { get; }
         public string AudioName { get; }
         public FileExtension FileExtension { get; }

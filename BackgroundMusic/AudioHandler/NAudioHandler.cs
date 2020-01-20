@@ -37,6 +37,12 @@ namespace BackgroundMusic.AudioHandler
             this._waveOutDevice = InitOutDevice(this._outputChannel);
         }
 
+        public IAudioHandler CreateNewInstance(string path)
+        {
+            NAudioHandler audioHandler = new NAudioHandler(path);
+            return audioHandler;
+        }
+
         public string Path { get; }
         public string AudioName { get; }
         public FileExtension FileExtension { get; }
