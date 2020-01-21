@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <Folder Include="Resources\" />
+    <Folder Include="SpeechRecognition\" />
   </ItemGroup>
 
   <ItemGroup>

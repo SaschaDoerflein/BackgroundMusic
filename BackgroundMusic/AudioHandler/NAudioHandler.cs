@@ -9,15 +9,11 @@ namespace BackgroundMusic.AudioHandler
 {
     public class NAudioHandler : IAudioHandler
     {
-        
-
         private IWavePlayer _waveOutDevice;
         private WaveChannel32 _outputChannel;
 
         public NAudioHandler(string audioFilePath)
         {
-
-
             var pathNameSplitIndex = audioFilePath.LastIndexOf(@"\", StringComparison.Ordinal)+1;
             var fileExtensionSplitIndex = audioFilePath.LastIndexOf(".", StringComparison.Ordinal) + 1;
 
@@ -87,6 +83,8 @@ namespace BackgroundMusic.AudioHandler
             TimePosition = TimeSpan.Zero;
         }
 
+        public bool IsRepeating { get; set; }
+
         private WaveChannel32 InitInputStream(string audioFilePath)
         {
             var readerStream = CreateReaderStream(audioFilePath);
@@ -130,6 +128,11 @@ namespace BackgroundMusic.AudioHandler
         private void PlaybackStoppedEvent(object sender, StoppedEventArgs e)
         {
             Stop();
+            if (IsRepeating)
+            {
+                Play();
+            }
+            
         }
 
         public void Dispose()

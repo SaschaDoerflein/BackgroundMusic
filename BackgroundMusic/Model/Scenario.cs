@@ -14,6 +14,10 @@ namespace BackgroundMusic.Model
 
         public List<Audio> Audios { get; }
 
+        public List<Audio> Atmos { get; }
+
+        public List<Audio> Sounds { get; }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)
         {

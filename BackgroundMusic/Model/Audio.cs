@@ -36,7 +36,7 @@ namespace BackgroundMusic.Model
         public TimeSpan TimePosition => _audioHandler.TimePosition;
         public TimeSpan TotalDuration => _audioHandler.TotalDuration;
 
-        
+        public bool IsRepeating => _audioHandler.IsRepeating;
 
         public void Play()
         {

@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BackgroundMusic
+namespace BackgroundMusic.View
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -26,6 +26,7 @@ namespace BackgroundMusic
             InitializeComponent();
 
             this.Title = "BackgroundMusic v" + GetVersionNumber();
+
         }
 
         private string GetVersionNumber()

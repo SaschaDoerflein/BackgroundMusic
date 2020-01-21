@@ -15,6 +15,7 @@ namespace BackgroundMusic.AudioHandler
         public ImmutableArray<FileExtension> SupportedFileExtensions { get; }
         TimeSpan TotalDuration { get; }
         TimeSpan TimePosition { get; set; }
+        bool IsRepeating { get; set; }
         void Play();
         void Pause();
         void Stop();
