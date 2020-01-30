@@ -15,7 +15,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Resources\" />
+    <None Remove="Resources\SaveFile.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\SaveFile.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="SpeechRecognition\" />
   </ItemGroup>
 

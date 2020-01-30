@@ -13,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BackgroundMusic.Model;
+using BackgroundMusic.ViewModel;
 
 namespace BackgroundMusic.View
 {
@@ -24,17 +26,16 @@ namespace BackgroundMusic.View
         public MainWindow()
         {
             InitializeComponent();
-
-            this.Title = "BackgroundMusic v" + GetVersionNumber();
-
+            BackgroundMusicViewModel backgroundMusicViewModel = new BackgroundMusicViewModel();
+            this.Title = "BackgroundMusic v" + backgroundMusicViewModel.VersionNumber;
         }
 
-        private string GetVersionNumber()
+        private void MenuItemPlay(object sender, RoutedEventArgs e)
         {
-            var executingAssembly = System.Reflection.Assembly.GetExecutingAssembly();
-            var fileVersionInfo = FileVersionInfo.GetVersionInfo(executingAssembly.Location);
-            var version = fileVersionInfo.FileVersion;
-            return version;
+            MenuItem menuItem = sender as MenuItem;
+            Audio audio = menuItem.DataContext as Audio;
+            //audio.Play();
         }
+
     }
 }

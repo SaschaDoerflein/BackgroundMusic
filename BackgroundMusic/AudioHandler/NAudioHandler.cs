@@ -2,24 +2,37 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Text;
+using System.Timers;
+using BackgroundMusic.InOut;
 using BackgroundMusic.Model;
 using NAudio.Wave;
 
 namespace BackgroundMusic.AudioHandler
 {
-    public class NAudioHandler : IAudioHandler
+    public class NAudioHandler
     {
         private IWavePlayer _waveOutDevice;
         private WaveChannel32 _outputChannel;
+        private Timer _timer;
+        private Random _randomGenerator;
+
+        public NAudioHandler()
+        {
+
+        }
 
         public NAudioHandler(string audioFilePath)
         {
+            _randomGenerator = new Random();
             var pathNameSplitIndex = audioFilePath.LastIndexOf(@"\", StringComparison.Ordinal)+1;
             var fileExtensionSplitIndex = audioFilePath.LastIndexOf(".", StringComparison.Ordinal) + 1;
 
             Path = audioFilePath.Substring(0, pathNameSplitIndex);
-            AudioName = audioFilePath.Substring(pathNameSplitIndex, fileExtensionSplitIndex);
-            var fileExtensionString = audioFilePath.Substring(fileExtensionSplitIndex, audioFilePath.Length - Path.Length);
+
+            var fileNameLenght = fileExtensionSplitIndex - pathNameSplitIndex-1;
+
+            AudioName = audioFilePath.Substring(pathNameSplitIndex, fileNameLenght);
+            var fileExtensionString = audioFilePath.Substring(fileExtensionSplitIndex, (audioFilePath.Length - (Path.Length+AudioName.Length)-1));
             foreach (var supportedFileExtension in SupportedFileExtensions)
             {
                 if (string.Equals(fileExtensionString, supportedFileExtension.ToString(), StringComparison.CurrentCultureIgnoreCase))
@@ -31,23 +44,25 @@ namespace BackgroundMusic.AudioHandler
 
             this._outputChannel = InitInputStream(audioFilePath);
             this._waveOutDevice = InitOutDevice(this._outputChannel);
+            IsInitialized = true;
         }
 
-        public IAudioHandler CreateNewInstance(string path)
+
+        public TimeSpan WaitTime { get; set; }
+        public TimeSpan RandomWaitTime { get; set; }
+        public string Path { get; }
+        public string AudioName { get; }
+        public File.FileExtension FileExtension { get; }
+        public NAudioHandler CreateNewInstance(string path)
         {
             NAudioHandler audioHandler = new NAudioHandler(path);
             return audioHandler;
         }
-
-        public string Path { get; }
-        public string AudioName { get; }
-        public FileExtension FileExtension { get; }
-
-        public ImmutableArray<FileExtension> SupportedFileExtensions
+        public ImmutableArray<File.FileExtension> SupportedFileExtensions
         {
             get
             {
-                return ImmutableArray.Create(new FileExtension[] { FileExtension.Mp3, FileExtension.Wav });
+                return ImmutableArray.Create(new File.FileExtension[] { File.FileExtension.Mp3, File.FileExtension.Wav });
             }
         } 
 
@@ -84,6 +99,7 @@ namespace BackgroundMusic.AudioHandler
         }
 
         public bool IsRepeating { get; set; }
+        public bool IsInitialized { get; set; }
 
         private WaveChannel32 InitInputStream(string audioFilePath)
         {
@@ -130,9 +146,27 @@ namespace BackgroundMusic.AudioHandler
             Stop();
             if (IsRepeating)
             {
+
+                _timer = new Timer();
+                _timer.Elapsed += new ElapsedEventHandler(PlayAudio);
+                _timer.Interval = WaitTime.TotalMilliseconds+GetRandomWaitingTime();
+                _timer.Enabled = true;
                 Play();
             }
-            
+        }
+
+        private int GetRandomWaitingTime()
+        {
+            var randomWaitingTime = 0;
+
+            randomWaitingTime = _randomGenerator.Next(0, (int)RandomWaitTime.TotalMilliseconds);
+
+            return randomWaitingTime;
+        }
+
+        public void PlayAudio(object source, ElapsedEventArgs e)
+        {
+            Play();
         }
 
         public void Dispose()
@@ -146,4 +180,6 @@ namespace BackgroundMusic.AudioHandler
             GC.Collect();
         }
     }
+
+
 }

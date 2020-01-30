@@ -8,6 +8,64 @@
         mc:Ignorable="d"
         Title="Background Music " Height="450" Width="800">
     <Grid>
-        <TextBox Margin="0,10" Name="txtSpeech" AcceptsReturn="True" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30*" />
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="70*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <DockPanel>
+            <Menu DockPanel.Dock="Top" Grid.Column="0" Grid.Row="0">
+                <MenuItem Header="_File" Name="FileMenu">
+                    <MenuItem Header="_New Campaign"/>
+                    <MenuItem Header="_Open Campaign"/>
+                    <Separator />
+                    <MenuItem Header="_Exit" />
+                </MenuItem>
+                <MenuItem Header="_Audio">
+                    <MenuItem Header="_Stop All" />
+                </MenuItem>
+                <MenuItem Header="_Help">
+                    <MenuItem Header="_Info" />
+                </MenuItem>
+            </Menu>
+        </DockPanel>
+
+        <Popup IsOpen="{Binding IsChecked, ElementName=FileMenu}" StaysOpen="False">
+        <Border Background="LightYellow">
+            <TextBlock>I'm the popup</TextBlock>
+        </Border>
+    </Popup> 
+
+        <ListView Name="LeftMusicComponents"  Margin="5" Grid.Row="1">
+            <ListView.Resources>
+                <ContextMenu x:Key="listViewContextMenu">
+                    <MenuItem Header="Play" Click="MenuItemPlay"/>
+
+                    <Separator />
+
+                </ContextMenu>
+            </ListView.Resources>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="ContextMenu" Value="{StaticResource listViewContextMenu}"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <WrapPanel>
+                        <TextBlock Text="{Binding Name}"/>
+                    </WrapPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" Grid.Row="1"/>
+        <Grid Grid.Column="2" Grid.Row="1">
+            
+        </Grid>
+
     </Grid>
 </Window>

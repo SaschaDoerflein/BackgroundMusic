@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<BackgroundMusic>
+  <LastCampaign>
+    <CampaignIndex>0</CampaignIndex>
+  </LastCampaign>
+  <Campaign>
+    <Name></Name>
+    <Path></Path>
+  </Campaign>
+</BackgroundMusic>

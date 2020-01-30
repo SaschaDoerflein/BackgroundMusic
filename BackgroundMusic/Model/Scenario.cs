@@ -1,27 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Text;
 
 namespace BackgroundMusic.Model
 {
-    public class Scenario : INotifyPropertyChanged
+    public class Scenario 
     {
         public Scenario()
         {
-            Audios = new List<Audio>();
+            Atmos = new List<Audio>();
+            Sounds = new List<Audio>();
         }
 
-        public List<Audio> Audios { get; }
-
-        public List<Audio> Atmos { get; }
-
-        public List<Audio> Sounds { get; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged(string propertyName)
+        public List<Audio> AllAudios
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            get
+            {
+                List<Audio> allAudios = new List<Audio>();
+                allAudios.AddRange(Atmos);
+                allAudios.AddRange(Sounds);
+                return allAudios;
+            }
+        }
+
+        public List<Audio> Atmos { get; set; }
+
+        public List<Audio> Sounds { get; set; }
+
+        public void PlayAtmos()
+        {
+            foreach (var atmo in Atmos)
+            {
+                atmo.Play();
+            }
+        }
+
+        public void StopAtmos()
+        {
+            foreach (var atmo in Atmos)
+            {
+                atmo.Stop();
+            }
         }
     }
 }
